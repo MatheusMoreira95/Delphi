@@ -1,0 +1,206 @@
+unit uTelaHerancaConsulta;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, ZAbstractRODataset,
+  ZAbstractDataset, ZDataset, Vcl.StdCtrls, Vcl.Buttons, Vcl.ComCtrls,
+  Vcl.Grids, Vcl.DBGrids, Vcl.Mask, Vcl.ExtCtrls;
+
+type
+  TfrmTelaHerancaConsulta = class(TForm)
+    Panel1: TPanel;
+    Panel2: TPanel;
+    Panel3: TPanel;
+    mskPesquisar: TMaskEdit;
+    lblIndice: TLabel;
+    grdPesquisa: TDBGrid;
+    dtsPesquisa: TDataSource;
+    qryPesquisa: TZQuery;
+    btnFechar: TBitBtn;
+    btnPesquisar: TBitBtn;
+    procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnFecharClick(Sender: TObject);
+    procedure btnFecharKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure grdPesquisaTitleClick(Column: TColumn);
+    procedure FormShow(Sender: TObject);
+    procedure grdPesquisaDblClick(Sender: TObject);
+    procedure mskPesquisarChange(Sender: TObject);
+    procedure btnPesquisarClick(Sender: TObject);
+  private
+    procedure ExibirLabelIndice(Campo: string; aLabel: TLabel);
+    function RetornarCampoTraduzido(Campo: String): string;
+    { Private declarations }
+  public
+    { Public declarations }
+    aIniciarPesquisaId :  Variant;
+    aRetornarIdSelecionado : Variant;
+    aCampoId : string;
+    IndiceAtual : String;
+    SelectOriginal : String;
+  end;
+
+var
+  frmTelaHerancaConsulta: TfrmTelaHerancaConsulta;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmTelaHerancaConsulta.btnFecharClick(Sender: TObject);
+begin
+ Close;
+end;
+
+procedure TfrmTelaHerancaConsulta.btnFecharKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+    // bloqueia o CTRL + DEL
+ if (Shift = [ssCtrl]) and (Key = 46) then
+    Key := 0;
+end;
+
+procedure TfrmTelaHerancaConsulta.btnPesquisarClick(Sender: TObject);
+var I : integer ;
+  TipoCampo : TFieldType;
+  NomeCampo : String;
+  whereOrAnd : String;
+  condicaoSql : String;
+
+begin
+       if NomeCampo ='' then
+       begin
+          MessageDlg('Informe o campo ', mtInformation,[mbOK] ,0)  ;
+          Abort;
+       end;
+
+
+      if mskPesquisar.Text = '' then
+       begin
+          qryPesquisa.Close;
+          qryPesquisa.SQL.Clear;
+          qryPesquisa.SQL.Add(SelectOriginal);
+          qryPesquisa.Open;
+          abort;
+       end;
+
+       for i := 0 to qryPesquisa.FieldCount -1 do
+       begin
+           if qryPesquisa.Fields[i].FieldName = IndiceAtual then
+            begin
+             TipoCampo := qryPesquisa.Fields[i].DataType;
+             if qryPesquisa.Fields[i].Origin<>'' then
+              begin
+                  if pos('.',qryPesquisa.Fields[i].Origin)>0 then
+                     NomeCampo := qryPesquisa.Fields[i].Origin
+                  else begin
+                      NomeCampo := qryPesquisa.Fields[i].Origin+'.'+ qryPesquisa.Fields[i].FieldName
+                  end;
+              end
+              else
+             NomeCampo :=qryPesquisa.Fields[i].FieldName;
+             Break;
+            end;
+       end;
+
+       if pos('where', lowerCase(SelectOriginal)) > 1 then
+        begin
+            whereOrAnd := ' and '
+        end
+        else begin
+            whereOrAnd := ' where '
+        end;
+
+     if (TipoCampo=ftString) or (TipoCampo= ftWideString) then
+        begin
+           condicaoSql :=  whereOrAnd + ' ' + NomeCampo + ' like ' +
+           QuotedStr('%'+ mskPesquisar.Text+'%' )
+        end
+        else if(TipoCampo = ftInteger) or (TipoCampo = ftSmallint) or (TipoCampo = ftFloat) then
+        begin
+            if(TipoCampo =ftFloat) then
+              begin
+                mskPesquisar.Text := StringReplace(mskPesquisar.Text,',','.',[rfReplaceAll]);
+              end;
+            condicaoSql :=  whereOrAnd + ' ' + NomeCampo + ' = ' +mskPesquisar.Text
+        end
+        else if (TipoCampo = ftDate) or (TipoCampo = ftDateTime) then
+        begin
+            condicaoSql := whereOrAnd +' ' + NomeCampo + ' = ' + QuotedStr(mskPesquisar.Text);
+        end;
+
+        qryPesquisa.Close;
+        qryPesquisa.SQL.Clear;
+        qryPesquisa.SQL.Add(SelectOriginal);
+        qryPesquisa.SQL.Add(condicaoSql);
+        qryPesquisa.Open;
+        mskPesquisar.Text := '';
+        mskPesquisar.SetFocus;
+
+end;
+
+
+procedure TfrmTelaHerancaConsulta.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+      if qryPesquisa.Active then
+          qryPesquisa.Close;
+end;
+
+procedure TfrmTelaHerancaConsulta.FormCreate(Sender: TObject);
+begin
+      if qryPesquisa.Active then
+          qryPesquisa.Close;
+
+      ExibirLabelIndice(IndiceAtual,lblIndice);
+      qryPesquisa.Open
+end;
+
+procedure TfrmTelaHerancaConsulta.FormShow(Sender: TObject);
+begin
+
+      SelectOriginal := qryPesquisa.SQL.Text;
+   if (aIniciarPesquisaId<>Unassigned) then
+    begin
+      qryPesquisa.Locate(aCampoId, aIniciarPesquisaId, [loPartialKey])
+    end;
+end;
+
+procedure TfrmTelaHerancaConsulta.grdPesquisaDblClick(Sender: TObject);
+begin
+    aRetornarIdSelecionado := qryPesquisa.FieldByName(aCampoId).AsVariant;
+    close;
+end;
+
+procedure TfrmTelaHerancaConsulta.grdPesquisaTitleClick(Column: TColumn);
+begin
+     IndiceAtual := Column.FieldName;
+     qryPesquisa.IndexFieldNames := IndiceAtual;
+     ExibirLabelIndice(IndiceAtual, lblIndice);
+end;
+
+procedure TfrmTelaHerancaConsulta.mskPesquisarChange(Sender: TObject);
+begin
+    qryPesquisa.Locate(IndiceAtual,TMaskEdit(sender).Text,[loPartialKey]);
+end;
+
+procedure  TfrmTelaHerancaConsulta.ExibirLabelIndice(Campo:string ; aLabel:TLabel);
+begin
+     aLabel.Caption:=RetornarCampoTraduzido(Campo);
+end;
+
+function TfrmTelaHerancaConsulta.RetornarCampoTraduzido(Campo:String):string ;
+var i: Integer;
+begin
+    for I := 0 to qryPesquisa.Fields.Count -1 do  begin;
+        if LowerCase( qryPesquisa.Fields[i].FieldName) = LowerCase(Campo) then begin
+          Result:= qryPesquisa.Fields[i].DisplayLabel;
+         Break;
+        end;
+    end;
+end;
+
+end.

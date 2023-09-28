@@ -1,0 +1,98 @@
+object frmAlterarSenha: TfrmAlterarSenha
+  Left = 0
+  Top = 0
+  BorderStyle = bsDialog
+  Caption = 'ALTERAR SENHA '
+  ClientHeight = 241
+  ClientWidth = 515
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label2: TLabel
+    Left = 21
+    Top = 35
+    Width = 128
+    Height = 19
+    Caption = 'SENHA ATUAL: '
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label1: TLabel
+    Left = 30
+    Top = 83
+    Width = 119
+    Height = 19
+    Caption = 'NOVA SENHA: '
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label3: TLabel
+    Left = 8
+    Top = 131
+    Width = 174
+    Height = 19
+    Caption = 'DIGITE NOVAMENTE:'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object edtSenhaAtual: TEdit
+    Left = 188
+    Top = 32
+    Width = 193
+    Height = 27
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    PasswordChar = '*'
+    TabOrder = 0
+  end
+  object edtSenhaNova: TEdit
+    Left = 188
+    Top = 80
+    Width = 193
+    Height = 27
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    PasswordChar = '*'
+    TabOrder = 1
+  end
+  object edtSenhaConfirmacao: TEdit
+    Left = 188
+    Top = 128
+    Width = 193
+    Height = 27
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    PasswordChar = '*'
+    TabOrder = 2
+  end
+end

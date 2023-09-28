@@ -1,0 +1,13 @@
+unit cControleEstoque;
+
+interface
+
+uses System.Classes,
+      Vcl.Controls,Vcl.ExtCtrls,vcl.Dialogs,
+      ZAbstractConnection, ZConnection,
+      ZAbstractRODataset, ZAbstractDataset, ZDataset,System.SysUtils ,Data.DB,
+      Datasnap.DBClient ;
+
+implementation
+
+end.

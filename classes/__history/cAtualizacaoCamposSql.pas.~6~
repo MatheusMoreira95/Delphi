@@ -1,0 +1,72 @@
+unit cAtualizacaoCamposSql;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, ZAbstractConnection, ZConnection, Data.DB,
+  ZAbstractRODataset, ZAbstractDataset, ZDataset, cAtualizacaoBancoDeDados ;
+
+
+ type
+
+  TAtualizacaoCampoMSSQL = class (TAtualizaBancoDados)
+
+  private
+    function CampoExisteNaTabela (aNomeTabela , aCampo :String): Boolean;
+
+    protected
+
+    public
+      constructor Create(aConexao : TZConnection);
+      destructor Destroy ; override;
+
+  end;
+
+implementation
+
+{ TAtualizacaoCampoMSSQL }
+
+function TAtualizacaoCampoMSSQL.CampoExisteNaTabela(aNomeTabela,
+  aCampo: String): Boolean;
+  var Qry : TZQuery;
+begin
+     try
+         Result := False;
+         Qry :=TZQuery.Create(nil);
+         Qry.Connection := ConexaoDB;
+         Qry.SQL.Clear;
+         Qry.SQL.Add('Select Count (column_name)as Qtde ');
+         Qry.SQL.Add(' From Information_chema.columns ');
+         Qry.SQL.Add(' Where table_name = :Tabela') ;
+         Qry.SQL.Add( ' and Column_name = :campo ' );
+         qry.ParamByName('tabela').AsString := aNomeTabela;
+         qry.ParamByName('campo ').AsString := aCampo;
+         Qry.Open;
+
+     if Qry.FieldByName('qtde').AsInteger > 0 then
+        Result := true;
+
+     finally
+        qry.Close;
+        if Assigned(Qry) then
+            FreeAndNil(qry);
+     end;
+
+
+
+
+end;
+
+constructor TAtualizacaoCampoMSSQL.Create(aConexao: TZConnection);
+begin
+ ConexaoDB := aConexao;
+end;
+
+destructor TAtualizacaoCampoMSSQL.Destroy;
+begin
+
+  inherited;
+end;
+
+
+end.

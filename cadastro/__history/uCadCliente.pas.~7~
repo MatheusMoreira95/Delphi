@@ -1,0 +1,53 @@
+unit uCadCliente;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UTelaHeranca, Data.DB,
+  ZAbstractRODataset, ZAbstractDataset, ZDataset, Vcl.DBCtrls, Vcl.Grids,
+  Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask, Vcl.ExtCtrls, Vcl.ComCtrls,
+  RxToolEdit,cCadCliente,UEnum;
+
+type
+  TfrmCadCliente = class(TfrmTelaHeranca)
+    edtClienteID: TLabeledEdit;
+    edtNome: TLabeledEdit;
+    edtCEP: TMaskEdit;
+    Label1: TLabel;
+    edtEndereco: TLabeledEdit;
+    edtBairro: TLabeledEdit;
+    edtEstado: TLabeledEdit;
+    edtCidade: TLabeledEdit;
+    edtEmail: TLabeledEdit;
+    edtTelefone: TMaskEdit;
+    Label2: TLabel;
+    edtNascimento: TDateEdit;
+    Label3: TLabel;
+    qryListagemclienteId: TIntegerField;
+    qryListagemnome: TWideStringField;
+    qryListagemendereco: TWideStringField;
+    qryListagemcidade: TWideStringField;
+    qryListagembairro: TWideStringField;
+    qryListagemestado: TWideStringField;
+    qryListagemcep: TWideStringField;
+    qryListagemtelefone: TWideStringField;
+    qryListagememail: TWideStringField;
+    qryListagemdataNascimento: TDateTimeField;
+  private
+       oCliente: TCliente;
+    function APagar:Boolean; override;
+    function Gravar(EstadoDoCadastro : TEstadoDoCadastro) :Boolean; override;
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCadCliente: TfrmCadCliente;
+
+implementation
+
+{$R *.dfm}
+
+
+end.

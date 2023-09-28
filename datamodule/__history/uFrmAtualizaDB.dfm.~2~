@@ -1,0 +1,47 @@
+object frmAtualizaDB: TfrmAtualizaDB
+  Left = 0
+  Top = 0
+  BorderStyle = bsNone
+  Caption = 'frmAtualizaDB'
+  ClientHeight = 270
+  ClientWidth = 521
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 521
+    Height = 270
+    Align = alClient
+    BevelOuter = bvLowered
+    BevelWidth = 3
+    BorderWidth = 3
+    Caption = 'Panel1'
+    Color = clBackground
+    ParentBackground = False
+    TabOrder = 0
+    ExplicitLeft = 184
+    ExplicitTop = 136
+    ExplicitWidth = 185
+    ExplicitHeight = 41
+    object Panel2: TPanel
+      Left = 6
+      Top = 6
+      Width = 509
+      Height = 258
+      Align = alClient
+      BevelOuter = bvNone
+      Caption = 'Panel2'
+      ParentBackground = False
+      TabOrder = 0
+      ExplicitLeft = 0
+    end
+  end
+end

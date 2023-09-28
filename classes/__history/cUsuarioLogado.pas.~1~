@@ -1,0 +1,13 @@
+unit cUsuarioLogado;
+
+interface
+
+uses system.classes, vcl.Controls , Vcl.ExtCtrls,
+vcl.Dialogs , system.sysUtils;
+
+type
+    TUsuarioLogado = class
+
+implementation
+
+end.

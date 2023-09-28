@@ -1,0 +1,92 @@
+unit cAtualizacaoBancoDeDados;
+
+
+interface
+
+uses
+  System.SysUtils, System.Classes, ZAbstractConnection, ZConnection, Data.DB,
+  ZAbstractRODataset, ZAbstractDataset, ZDataset ;
+
+ type
+   TAtualizaBancoDados =  class
+      public
+         ConexaoDB: TZConnection;
+         constructor Create(aConexao : TZConnection);
+         procedure ExecutaDiretoBancoDeDados(aScript : String);
+ end;
+
+ type
+    TAtualizaBancoDadosMSSQL = class
+
+    private
+        ConexaoDB : TZConnection;
+    public
+        function AtualizarBancoDeDadosMSSQL : Boolean;
+        constructor  Create(aConexao : TZConnection);
+  end;
+
+implementation
+
+uses cAtualizacaoTabelaMSSQL, cAtualizacaoTabelaMSSQL, cAtualizacaoCamposSql;
+
+{ TAtualizaBancoDados }
+
+constructor TAtualizaBancoDados.Create(aConexao: TZConnection);
+begin
+    ConexaoDB := aConexao;
+end;
+
+procedure TAtualizaBancoDados.ExecutaDiretoBancoDeDados(aScript: String);
+Var Qry : TZQuery;
+begin
+
+    try
+        Qry :=TZQuery.Create(nil);
+        Qry.Connection := ConexaoDB;
+        Qry.SQL.Clear;
+        Qry.SQL.Add(aScript);
+          try
+            ConexaoDB.StartTransaction;
+            Qry.ExecSQL;
+            ConexaoDB.Commit
+         Except
+             ConexaoDB.Commit;
+         end;
+    finally
+        if Assigned(Qry) then    
+        FreeAndNil(Qry);
+    end;
+end;
+
+{ TAtualizaBancoDadosMSSQL }
+
+function TAtualizaBancoDadosMSSQL.AtualizarBancoDeDadosMSSQL: Boolean;
+var oAtualizarDB: TAtualizaBancoDados;
+    oTabela : TAtualizacaoTabelaMSSQL;
+    oCampo : Tatu
+
+begin
+     try
+        //Classe principal de Atualização
+        oAtualizarDB := TAtualizaBancoDados.Create(ConexaoDB);
+
+        //Sub-Class  classe filha (Herança) de Atualização
+        oTabela := TAtualizacaoTabelaMSSQL.Create(ConexaoDB);
+
+        oCampo := TAtualizacaoCampoMSSQL.Create(ConexaoDB);
+
+     finally
+        if Assigned(oAtualizarDB) then
+           FreeAndNil(oAtualizarDB);
+        if Assigned(oTabela) then
+           FreeAndNil(oTabela);
+
+     end;
+end;
+
+constructor TAtualizaBancoDadosMSSQL.Create(aConexao: TZConnection);
+begin
+   ConexaoDB := aConexao;
+end;
+
+end.

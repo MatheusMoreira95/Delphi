@@ -1,0 +1,29 @@
+inherited frmConCategoria: TfrmConCategoria
+  Caption = 'CONSULTA DE CATEGORIAS'
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited Panel1: TPanel
+    ExplicitLeft = 0
+    ExplicitTop = 0
+    inherited mskPesquisar: TMaskEdit
+      Height = 21
+      ExplicitHeight = 21
+    end
+  end
+  inherited Panel2: TPanel
+    ExplicitTop = 57
+    ExplicitWidth = 732
+    ExplicitHeight = 297
+    inherited grdPesquisa: TDBGrid
+      OnKeyDown = nil
+    end
+  end
+  inherited Panel3: TPanel
+    ExplicitLeft = 0
+    ExplicitTop = 354
+    ExplicitWidth = 732
+    inherited btnFechar: TBitBtn
+      ExplicitLeft = 631
+    end
+  end
+end

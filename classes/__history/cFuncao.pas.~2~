@@ -1,0 +1,27 @@
+unit cFuncao;
+
+
+interface
+
+uses System.Classes,ZAbstractConnection, ZConnection, system.SysUtils,
+ZAbstractRODataset, ZAbstractDataset, ZDataset , Vcl.ExtCtrls,
+Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus,  Vcl.Forms ,  Vcl.buttons,
+cAcaoAcesso , cUsuarioLogado, RLReport;
+
+
+type
+  TFuncao = class
+
+  private
+
+  public
+    class procedure CriarForm (aNomeForm : TFormClass; oUsuarioLogado : TUsuarioLogado ; aConexao: TZConnection); static;
+    class procedure CriarRelataorio (aNomeForm : TFormClass; oUsuarioLogado : TUsuarioLogado ; aConexao: TZConnection); static;
+
+
+
+  end;
+
+implementation
+
+end.

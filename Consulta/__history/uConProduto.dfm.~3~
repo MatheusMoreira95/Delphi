@@ -1,0 +1,29 @@
+inherited frmConProduto: TfrmConProduto
+  Caption = 'frmConProduto'
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited Panel1: TPanel
+    inherited mskPesquisar: TMaskEdit
+      Height = 21
+      ExplicitHeight = 21
+    end
+  end
+  inherited Panel2: TPanel
+    ExplicitTop = 57
+    ExplicitWidth = 732
+    ExplicitHeight = 297
+    inherited grdPesquisa: TDBGrid
+      DataSource = dtsPesquisa
+    end
+  end
+  inherited Panel3: TPanel
+    inherited btnFechar: TBitBtn
+      ExplicitLeft = 631
+    end
+  end
+  inherited qryPesquisa: TZQuery
+    SQL.Strings = (
+      'SELECT produtoId , nome , valor , quantidade'
+      'from produtos')
+  end
+end

@@ -1,0 +1,72 @@
+unit cControleEstoque;
+
+interface
+
+uses System.Classes,
+      Vcl.Controls,Vcl.ExtCtrls,vcl.Dialogs,
+      ZAbstractConnection, ZConnection,
+      ZAbstractRODataset, ZAbstractDataset, ZDataset,System.SysUtils ,Data.DB,
+      Datasnap.DBClient ;
+
+type
+  TControleEstoque = class
+
+  private
+     ConexaoDB: TZConnection;
+     F_ProdutoId : Integer;
+     F_Quantidade : Double;
+
+  public
+      constructor Create(aConexao:TZConnection);
+      destructor Destroy; override;
+      function  BaixarEstoque : Boolean   ;
+      function RetornarEstoque : Boolean ;
+
+  published
+      property ProdutoId : Integer read F_ProdutoId write F_ProdutoId;
+      property Quantidade : Double read F_Quantidade write F_Quantidade;
+
+  end;
+
+implementation
+
+{$region 'Contructor e Destructor'}
+
+constructor TControleEstoque.Create(aConexao: TZConnection);
+begin
+     ConexaoDB := aConexao;
+end;
+
+destructor TControleEstoque.Destroy;
+begin
+   inherited;
+end;
+{$endRegion}
+
+ function TControleEstoque.BaixarEstoque : Boolean;
+  var Qry : TZQuery;
+ begin
+
+    try
+        Result := True;
+        Qry := TZQuery.Create(nil);
+        Qry.Connection := ConexaoDB;
+        Qry.SQL.Clear;
+        Qry.SQL.Add(' UPDATE produtos SET quantidade = quantidade - :qtdeBaixa  ' +
+                    ' Where produtoId = :produtoId ' );
+        Qry.ParamByName('qtdeBaixa').AsFloat = Self.F_Quantidade;
+        Qry.ParamByName('ProdutoId').AsInteger = Self.F_ProdutoId;
+
+        try
+          Qry.ExecSQL;
+        Except
+          Result := False;
+        end;
+
+    finally
+        if Assigned (Qry) then
+        FreeAndNil(Qry);
+    end;
+
+ end;
+end.

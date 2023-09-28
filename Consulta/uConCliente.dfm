@@ -1,0 +1,75 @@
+inherited frmConCliente: TfrmConCliente
+  Caption = 'CONSULTAR CLIENTE'
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited Panel1: TPanel
+    ExplicitLeft = 1
+  end
+  inherited Panel2: TPanel
+    inherited grdPesquisa: TDBGrid
+      DataSource = dtsPesquisa
+      Columns = <
+        item
+          Expanded = False
+          FieldName = 'clienteId'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'nome'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'telefone'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'endereco'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'cidade'
+          Visible = True
+        end>
+    end
+  end
+  inherited qryPesquisa: TZQuery
+    Active = True
+    SQL.Strings = (
+      'select clienteId , nome, endereco , cidade ,telefone'
+      ' from clientes')
+    object qryPesquisaclienteId: TIntegerField
+      DisplayLabel = 'C'#243'digo'
+      DisplayWidth = 10
+      FieldName = 'clienteId'
+      ReadOnly = True
+    end
+    object qryPesquisanome: TWideStringField
+      DisplayLabel = 'Nome'
+      DisplayWidth = 48
+      FieldName = 'nome'
+      Size = 60
+    end
+    object qryPesquisaendereco: TWideStringField
+      DisplayLabel = 'Endere'#231'o'
+      DisplayWidth = 60
+      FieldName = 'endereco'
+      Size = 60
+    end
+    object qryPesquisacidade: TWideStringField
+      DisplayLabel = 'Cidade'
+      DisplayWidth = 50
+      FieldName = 'cidade'
+      Size = 50
+    end
+    object qryPesquisatelefone: TWideStringField
+      DisplayLabel = 'Telefone'
+      DisplayWidth = 14
+      FieldName = 'telefone'
+      Size = 14
+    end
+  end
+end

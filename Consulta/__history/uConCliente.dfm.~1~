@@ -1,0 +1,9 @@
+inherited frmConCliente: TfrmConCliente
+  Caption = 'CONSULTAR CLIENTE'
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited Panel1: TPanel
+    ExplicitLeft = 0
+    ExplicitTop = 0
+  end
+end

@@ -1,0 +1,498 @@
+object frmRelProVenda: TfrmRelProVenda
+  Left = 0
+  Top = 0
+  Caption = 'RELATORIO VENDA'
+  ClientHeight = 639
+  ClientWidth = 824
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnDestroy = FormDestroy
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Relatorio: TRLReport
+    Left = 22
+    Top = -24
+    Width = 794
+    Height = 1123
+    DataSource = dtsVenda
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = []
+    object Cabecalho: TRLBand
+      Left = 38
+      Top = 38
+      Width = 718
+      Height = 59
+      BandType = btHeader
+      object RLLabel1: TRLLabel
+        Left = 345
+        Top = 11
+        Width = 78
+        Height = 24
+        Alignment = taCenter
+        Caption = 'VENDA'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -21
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object RLDraw1: TRLDraw
+        Left = 0
+        Top = 41
+        Width = 718
+        Height = 18
+        Align = faClientBottom
+        DrawKind = dkLine
+        Pen.Width = 2
+      end
+    end
+    object rodape: TRLBand
+      Left = 38
+      Top = 347
+      Width = 718
+      Height = 48
+      BandType = btFooter
+      object RxLabel1: TRxLabel
+        Left = 648
+        Top = 24
+        Width = 6
+        Height = 16
+        Caption = '/'
+      end
+      object RLDraw2: TRLDraw
+        Left = 0
+        Top = 0
+        Width = 718
+        Height = 18
+        Align = faTop
+        DrawKind = dkLine
+        Pen.Width = 2
+      end
+      object RLSystemInfo1: TRLSystemInfo
+        Left = 3
+        Top = 24
+        Width = 60
+        Height = 16
+        Info = itFullDate
+        Text = ''
+      end
+      object RLSystemInfo2: TRLSystemInfo
+        Left = 608
+        Top = 24
+        Width = 34
+        Height = 16
+        Alignment = taRightJustify
+        Info = itPageNumber
+        Text = ''
+      end
+      object RLSystemInfo3: TRLSystemInfo
+        Left = 660
+        Top = 24
+        Width = 45
+        Height = 16
+        Info = itLastPageNumber
+        Text = ''
+      end
+      object RLLabel2: TRLLabel
+        Left = 554
+        Top = 24
+        Width = 53
+        Height = 16
+        Caption = 'P'#225'gina:'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+    end
+    object BandaDoGrupo: TRLGroup
+      Left = 38
+      Top = 97
+      Width = 718
+      Height = 178
+      DataFields = 'vendaId'
+      ForceMinBands = True
+      object RLBand3: TRLBand
+        Left = 0
+        Top = 0
+        Width = 718
+        Height = 27
+        BandType = btHeader
+        Color = clSilver
+        ParentColor = False
+        Transparent = False
+        object RLLabel9: TRLLabel
+          Left = 3
+          Top = 5
+          Width = 49
+          Height = 16
+          Caption = 'Venda: '
+        end
+        object RLDBText4: TRLDBText
+          Left = 52
+          Top = 5
+          Width = 47
+          Height = 16
+          DataField = 'vendaId'
+          DataSource = dtsVenda
+          Text = ''
+        end
+        object RLLabel7: TRLLabel
+          Left = 522
+          Top = 3
+          Width = 76
+          Height = 16
+          Caption = 'Data Venda '
+        end
+        object RLDBText3: TRLDBText
+          Left = 604
+          Top = 3
+          Width = 66
+          Height = 16
+          DataField = 'dataVenda'
+          DataSource = dtsVenda
+          Text = ''
+        end
+      end
+      object RLBand1: TRLBand
+        Left = 0
+        Top = 27
+        Width = 718
+        Height = 38
+        AlignToBottom = True
+        object RLDBText1: TRLDBText
+          Left = 57
+          Top = 4
+          Width = 52
+          Height = 16
+          DataField = 'clienteId'
+          DataSource = dtsVenda
+          Text = ''
+        end
+        object RLDBText2: TRLDBText
+          Left = 115
+          Top = 3
+          Width = 36
+          Height = 16
+          DataField = 'nome'
+          DataSource = dtsVenda
+          Text = ''
+        end
+        object RLLabel4: TRLLabel
+          Left = 3
+          Top = 6
+          Width = 48
+          Height = 16
+          Caption = 'Cliente:'
+        end
+      end
+      object RLSubDetail1: TRLSubDetail
+        Left = 0
+        Top = 65
+        Width = 718
+        Height = 96
+        DataSource = dtsVendasItens
+        object RLBand2: TRLBand
+          Left = 0
+          Top = 0
+          Width = 718
+          Height = 41
+          BandType = btHeader
+          object RLLabel3: TRLLabel
+            Left = 3
+            Top = 6
+            Width = 60
+            Height = 16
+            Caption = 'Produtos'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -13
+            Font.Name = 'Arial'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object RLLabel8: TRLLabel
+            Left = 395
+            Top = 6
+            Width = 92
+            Height = 16
+            Caption = 'Valor Unitario'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -13
+            Font.Name = 'Arial'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object RLLabel10: TRLLabel
+            Left = 493
+            Top = 6
+            Width = 78
+            Height = 16
+            Caption = 'Quantidade'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -13
+            Font.Name = 'Arial'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object RLLabel11: TRLLabel
+            Left = 604
+            Top = 6
+            Width = 90
+            Height = 16
+            Caption = 'Total Produto'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -13
+            Font.Name = 'Arial'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object RLLabel12: TRLLabel
+            Left = 69
+            Top = 6
+            Width = 66
+            Height = 16
+            Caption = 'Descri'#231#227'o'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -13
+            Font.Name = 'Arial'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+        end
+        object RLBand4: TRLBand
+          Left = 0
+          Top = 41
+          Width = 718
+          Height = 24
+          object RLDBText5: TRLDBText
+            Left = 69
+            Top = 6
+            Width = 228
+            Height = 16
+            DataField = 'nome'
+            DataSource = dtsVendasItens
+            Text = ''
+          end
+          object RLDBText6: TRLDBText
+            Left = 3
+            Top = 6
+            Width = 57
+            Height = 16
+            DataField = 'produtoId'
+            DataSource = dtsVendasItens
+            Text = ''
+          end
+          object RLDBText7: TRLDBText
+            Left = 395
+            Top = 6
+            Width = 74
+            Height = 16
+            DataField = 'valorUnitario'
+            DataSource = dtsVendasItens
+            Text = ''
+          end
+          object RLDBText8: TRLDBText
+            Left = 493
+            Top = 6
+            Width = 67
+            Height = 16
+            DataField = 'quantidade'
+            DataSource = dtsVendasItens
+            Text = ''
+          end
+          object RLDBText9: TRLDBText
+            Left = 604
+            Top = 6
+            Width = 90
+            Height = 16
+            DataField = 'totalProduto'
+            DataSource = dtsVendasItens
+            Text = ''
+          end
+        end
+      end
+    end
+    object RLBand5: TRLBand
+      Left = 38
+      Top = 275
+      Width = 718
+      Height = 72
+      BandType = btSummary
+      object RLLabel5: TRLLabel
+        Left = 490
+        Top = 16
+        Width = 73
+        Height = 16
+        Caption = 'Total Venda'
+      end
+      object RLDBResult3: TRLDBResult
+        Left = 593
+        Top = 16
+        Width = 105
+        Height = 16
+        DataField = 'totalVenda'
+        DataSource = dtsVenda
+        Info = riSum
+        Text = ''
+      end
+      object RLDraw3: TRLDraw
+        Left = 490
+        Top = -8
+        Width = 225
+        Height = 18
+        DrawKind = dkLine
+        Pen.Width = 2
+      end
+    end
+  end
+  object RLLabel6: TRLLabel
+    Left = 428
+    Top = 14
+    Width = 70
+    Height = 16
+    Caption = 'Quantidade'
+  end
+  object QryVenda: TZQuery
+    Connection = dtmPrincipal.ConexaoDB
+    SQL.Strings = (
+      'SELECT vendas.vendaId ,'
+      'vendas.clienteId,'
+      'clientes.nome,'
+      'vendas.dataVenda,'
+      'vendas.totalVenda'
+      'from vendas'
+      'inner join clientes '
+      'on clientes.clienteId= vendas.clienteId'
+      'where vendas.vendaId = :vendaId')
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'vendaId'
+        ParamType = ptInput
+        Value = '25'
+      end>
+    Left = 248
+    Top = 464
+    ParamData = <
+      item
+        DataType = ftInteger
+        Name = 'vendaId'
+        ParamType = ptInput
+        Value = '25'
+      end>
+    object QryVendavendaId: TIntegerField
+      FieldName = 'vendaId'
+      ReadOnly = True
+    end
+    object QryVendaclienteId: TIntegerField
+      FieldName = 'clienteId'
+      Required = True
+    end
+    object QryVendanome: TWideStringField
+      FieldName = 'nome'
+      Size = 60
+    end
+    object QryVendadataVenda: TDateTimeField
+      FieldName = 'dataVenda'
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object QryVendatotalVenda: TFloatField
+      FieldName = 'totalVenda'
+      DisplayFormat = '#0.00'
+    end
+  end
+  object dtsVenda: TDataSource
+    DataSet = QryVenda
+    Left = 240
+    Top = 416
+  end
+  object RLPDFFilter1: TRLPDFFilter
+    DocumentInfo.Creator = 
+      'FortesReport Community Edition v4.0.0.1 \251 Copyright '#169' 1999-20' +
+      '21 Fortes Inform'#225'tica'
+    DisplayName = 'Documento PDF'
+    Left = 512
+    Top = 432
+  end
+  object RLXLSXFilter1: TRLXLSXFilter
+    DisplayName = 'Planilha Excel'
+    Left = 592
+    Top = 456
+  end
+  object dtsVendasItens: TDataSource
+    DataSet = QryVendasItens
+    Left = 328
+    Top = 424
+  end
+  object QryVendasItens: TZQuery
+    Connection = dtmPrincipal.ConexaoDB
+    SQL.Strings = (
+      
+        'SELECT'#9'vendasItens.vendaId , vendasItens.produtoId , produtos.no' +
+        'me,'
+      
+        #9'vendasItens.quantidade , vendasItens.valorUnitario , vendasIten' +
+        's.totalProduto'
+      'from vendasItens'
+      'inner join produtos'
+      'on produtos.produtoId = vendasItens.produtoId'
+      'where vendasItens.vendaId = :vendaId'
+      'order by vendasItens.produtoId')
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'vendaId'
+        ParamType = ptInput
+        Value = 25
+      end>
+    Left = 336
+    Top = 472
+    ParamData = <
+      item
+        DataType = ftInteger
+        Name = 'vendaId'
+        ParamType = ptInput
+        Value = 25
+      end>
+    object QryVendasItensvendaId: TIntegerField
+      FieldName = 'vendaId'
+      Required = True
+    end
+    object QryVendasItensprodutoId: TIntegerField
+      FieldName = 'produtoId'
+      Required = True
+    end
+    object QryVendasItensnome: TWideStringField
+      FieldName = 'nome'
+      Size = 60
+    end
+    object QryVendasItensquantidade: TFloatField
+      FieldName = 'quantidade'
+      DisplayFormat = '#0.00'
+    end
+    object QryVendasItensvalorUnitario: TFloatField
+      FieldName = 'valorUnitario'
+      DisplayFormat = '#0.00'
+    end
+    object QryVendasItenstotalProduto: TFloatField
+      FieldName = 'totalProduto'
+      DisplayFormat = '#0.00'
+    end
+  end
+end
